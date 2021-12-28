@@ -1,3 +1,1 @@
-# interview-questions-12s
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/interview-questions-12s)
+1. Explain Higher Order Functions in javascript ?.
