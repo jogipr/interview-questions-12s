@@ -235,5 +235,68 @@ const ourPromise = new CustomePromise((resolve,reject)=>{
 console.log(ourPromise)
 ourPromise.then((value)=> console.log(value));
 ```
+6. Write Promsification : Convert function which takes callback funtion for handling asyn operation...using Promise based approach
+ a) Callback way of handling asynchronous call.
+ 
+ ```
+function loadScript(scriptfile,callBack){
+    const script=document.createElement("script")
+    script.src=scriptfile;
+    script.onload=function(ev){
+        callBack(null,"script loaded");
+    }
+    document.head.append(script);
+}
+
+function callBack(err,result){
+    if(err){
+        // do something
+    }else{
+        // do something
+    }
+}
+loadScript("some/script.js",callBack)
+```
+
+Promise way of handling asynchronous call
+```
+function loadScriptPromise(scriptfile){
+    return new Promise((resolve,reject)=>{
+        const script=document.createElement("script")
+        script.src=scriptfile;
+        script.onload=function(ev){
+            resolve("script loaded");
+        }
+        script.onerror=function(ev){
+            reject(new Error("script error"));
+        }
+        document.head.append(script);
+    });
+}
+
+loadScriptPromise("some/script.js")
+.then(res=>console.log(res))
+.catch(err=>console.log(err))
+```
+Promisification  of function which takes callback.
+
+```
+function promisify(func){
+    return (...args)=>{
+        let bogus="";// as i want to use return statement in arrow function and avoid warning
+        return new Promise((resolve,reject)=>{
+            const callBack1=(err,res)=>{
+                    if(err) reject(err);
+                    else resolve(res);
+            }
+            const newArgs=args.push(callBack1);
+           return func.call(newArgs);
+        })        
+    }
+}
+```
+
+promisify(loadScript)("some/script").then(()=>console.log("done"))
+
 
 
