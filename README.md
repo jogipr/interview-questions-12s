@@ -294,9 +294,47 @@ function promisify(func){
         })        
     }
 }
-```
 
 promisify(loadScript)("some/script").then(()=>console.log("done"))
-
-
+```
+Logical Question  related to currying. Write the function which will take object as shown below and then produce the result as shown below
+Input to function
+```
+const e = expresssion({
+    sum: "a+b",
+    mul: "a*b",
+    nested: {
+        sum: "a+b"
+    }
+})
+```
+Output from the when called
+```
+e(1, 2);  
+// {
+    "sum": 3,
+    "mul": 2,
+    "nested": {
+        "sum": 3
+    }
+}
+```
+Implementation for above 
+```
+function expresssion(obj){
+    return( (a,b)=>{
+        const output={};
+        Object.keys(obj).forEach(key=>{
+            if (typeof obj[key]==='object'){
+               const res= expresssion(obj[key])(a,b);
+                output[key]=res;
+            }else{
+                const operation = obj[key][1];
+                output[key]=eval(`${a} ${operation} ${b}`);
+            }            
+        })
+        return output;
+    })
+}
+```
 
