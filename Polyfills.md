@@ -1,5 +1,7 @@
 1. Write your own implementation for JSON.stringyfy .
-   Input to function
+
+<details>
+  <summary>Example Input</summary>
 
 ```
 const input = {
@@ -17,8 +19,10 @@ const input = {
  }]
 };
 ```
+</details>
 
-Implementation
+<details>
+  <summary>Solution</summary>
 
 ```
 function stringifyObj(input) {
@@ -51,9 +55,12 @@ function stringifyObj(input) {
   return output;
 }
 ```
+</details>
 
-2. Write the polyfill for filter method of Array
-   //Solution
+2. Write the polyfill for filter method of Array.
+
+<details>
+  <summary>Example Input</summary>
 
 ```
 var logicAlbums = [
@@ -68,7 +75,13 @@ var logicAlbums = [
   },
   { name: 'Under Pressure', rating: 5 },
 ]
+```
+</details>
 
+<details>
+  <summary>Solution</summary>
+
+```
 Array.prototype.filterAlbums = function(callback) {
   arr = []
   for (var i = 0; i < this.length; i++) {
@@ -84,15 +97,23 @@ const newAlbums=logicAlbums.filterAlbums(function(album) {
 
 console.log(newAlbums)
 ```
+</details>
+
 
 3. Write Polyfill for flat method of an Array
 
-Solution :
-Implementation using normal function
+<details>
+  <summary>Example Input</summary>
 
 ```
 const input =[ "one", "two",["three","four",["five","six"]]];
+```
+</details>
 
+<details>
+  <summary>Solution</summary>
+
+```
 let output=[];
 function getFlat(input){
     input.forEach(arr=>{
@@ -107,7 +128,7 @@ function getFlat(input){
 getFlat(input);
 console.log(output);
 
-//Implementation Polyfill function
+// Implementation Polyfill function
 
 Array.prototype.myFlat=function(){
      let output=[];
@@ -123,3 +144,5 @@ Array.prototype.myFlat=function(){
 
 console.log(input.myFlat())
 ```
+</details>
+
