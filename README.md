@@ -1,9 +1,11 @@
 1.  The organizational structure of a company is provided as a tree. The tree is structured as an object keyed by employee name. The value for a given key is a list of names of people who report to that employee. The list of reports may be empty.
 
-// Example input:
+
+<details>
+<summary>Example input</summary>
 
 ```
-const tree = {
+ const tree = {
 'Jane Mayer': ['Baraka Tumuti', 'Sarah Lee', 'David Heinsburg'],
 'Baraka Tumuti': ['Abida Begum'],
 'Sarah Lee': ['David Gibbly', 'Kelsey Hamming'],
@@ -13,12 +15,14 @@ const tree = {
 'Kelsey Hamming': [],
 'Dave Bunt': [],
 'James Ray': [],
-};
+}; 
 ```
+</details>
 
-// Solution :
-
-```
+<details>
+<summary>Solution</summary>
+ 
+ ```
 function printSuborg2(leader) {
  let reportees = tree[leader];
  if(reportees.length===0){
@@ -32,18 +36,25 @@ return leader;
 // run function
 printSuborg('Jane Mayer');
 ```
+ </details> 
+
+
 
 2. Write a function which will do arthmatic operations
 
+<details>
+  <summary>Example Input</summary>
+ 
 ```
-example Input:
 console.log("plus(3).minus(2).value()", plus(3).minus(2).plus(7).value());  // output: 8
 console.log("minus(3).minus(3).value()", minus(3).minus(3).value());  //// output: 0
 ```
+</details>
 
-//Solution
+<details>
+  <summary>Solution</summary>
 
-```
+ ```
 //first solution
 class Box {
   constructor(v) { this._value = v }
@@ -67,17 +78,22 @@ function minus(x) {
     return plus(-x)
 }
 ```
+</details>
+
 
 2. Write the implementation of Compose function
-   Example :
-
+<details>
+  <summary>Example Input</summary>
+ 
 ```
 console.info(compose(mul,sum)(2))   // should print 16
 ```
+</details>
 
-Solution:
+<details>
+  <summary>Solution</summary>
 
-```
+ ```
 function sum(a) {
     return a + a;
 }
@@ -91,12 +107,16 @@ function compose(...funcs) {
     }
 }
 ```
+</details>
+
+
 
 3. Write debounce and throttle implementation
 
-Solution
-
-```
+<details>
+  <summary>Solution</summary>
+ 
+ ```
 function debounce(func, timeout = 300){
   let timer;
   return (...args) => {
@@ -113,15 +133,17 @@ function saveInput(args){
 let obj={
   name:"Prashant"
 }
-
 const processChange = debounce.call(obj,saveInput);
-
 processChange("test");
 ```
+</details>
+
 
 4. Write implementation of infite currying
-
-```
+<details>
+  <summary>Solution</summary>
+ 
+ ```
 function infiniteSum(a) {
     return function (b){
         if(b){
@@ -130,13 +152,16 @@ function infiniteSum(a) {
         return a;
     }
 }
-
 console.log(infiniteSum(3)(3)())
 ```
+</details>
+
 
 5. Write the custome Promise logic
-
-```
+<details>
+  <summary>Solution</summary>
+ 
+ ```
 Solution:
 function CustomePromise(executorFunc) {
 
@@ -179,10 +204,15 @@ const ourPromise = new CustomePromise((resolve,reject)=>{
 console.log(ourPromise)
 ourPromise.then((value)=> console.log(value));
 ```
+</details>
+
 
 6. Write Promsification : Convert function which takes callback funtion for handling asyn operation...using Promise based approach
-   a) Callback way of handling asynchronous call.
+   a) 
 
+<details>
+  <summary>Solution: Callback way of handling asynchronous call.</summary>
+ 
 ```
 function loadScript(scriptfile,callBack){
    const script=document.createElement("script")
@@ -202,10 +232,12 @@ function callBack(err,result){
 }
 loadScript("some/script.js",callBack)
 ```
+</details>
 
-Promise way of handling asynchronous call
+<details>
+  <summary>Solution :Promise way of handling asynchronous call</summary>
 
-```
+ ```
 function loadScriptPromise(scriptfile){
     return new Promise((resolve,reject)=>{
         const script=document.createElement("script")
@@ -224,9 +256,16 @@ loadScriptPromise("some/script.js")
 .then(res=>console.log(res))
 .catch(err=>console.log(err))
 ```
+</details>
+
+
+
 
 7. Promisification of function which takes callback.
 
+<details>
+  <summary>Solution</summary>
+ 
 ```
 function promisify(func){
     return (...args)=>{
@@ -245,8 +284,14 @@ function promisify(func){
 promisify(loadScript)("some/script").then(()=>console.log("done"))
 ```
 
+</details>
+
+
 8. Logical Question related to currying. Write the function which will take object as shown below and then produce the result as shown below
    Input to function
+
+<details>
+  <summary>Example Input</summary>
 
 ```
 const e = expresssion({
@@ -257,23 +302,12 @@ const e = expresssion({
     }
 })
 ```
+</details>
 
-Output from the when called
+<details>
+  <summary>Solution</summary>
 
-```
-e(1, 2);
-// {
-    "sum": 3,
-    "mul": 2,
-    "nested": {
-        "sum": 3
-    }
-}
-```
-
-Implementation for above
-
-```
+ ```
 function expresssion(obj){
     return( (a,b)=>{
         const output={};
@@ -290,3 +324,6 @@ function expresssion(obj){
     })
 }
 ```
+</details>
+
+
