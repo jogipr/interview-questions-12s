@@ -3,6 +3,7 @@
 <summary>Answer</summary>
 
 ```
+ Single threaded , synchronous in nature  , handle asynchronus operartions via event loops
  --javascript runtime
   --javascript engine , heap memory ,call stack (execution context) ,Web API ,callback queue , event loop
   -- javascript is interpreted as well JIT comppile language
