@@ -1,97 +1,146 @@
-1. Write the function to get nth prime number ?
-  
-   <details>
-    <summary>Solution</summary>
-
-    ```
-
-        const isPrimeNumber = (num) => {
-        let isPrime = true
-        if (num >= 2) {
-            for (let i = 2; i < num; i++) {
-                if (num % i == 0) {
-                    isPrime = false;
-                    break;
-                }
-            }
-        }
-        return isPrime;
-    }
-
-    function nthPrimeNumber(pos) {
-
-        let num = 2;
-        let cnt = 1;
-        while (cnt <= pos) {
-            if (!isPrimeNumber(num)) {
-                num++;
-            } else {
-                cnt++;
-                num++;
-            }
-
-        }
-        return num - 1;
-    }
-
-        console.log(nthPrimeNumber(3))
-        // 2 3 5 7 11 => 5
-            
-    ```
-    </details>
-
-2. Write a function to flaten the array 
+1. Write your own implementation for JSON.stringyfy.
 
     <details>
-    <summary>Solution</summary>
+    <summary>Example Input</summary>
 
-    ```
-    let arr = [1, [2, [3, [4]]], 5, [6]]
-    //output -> [1, 2, 3, 4, 5, 6]
-
-
-    function getFlatArray(arr) {
-        let output=[]
-        arr.forEach(item=>{
+        ```
+        const input = {
+        'name': 'Prashant',
+        'address' : {
+            'city': 'pune',
+            'state': 'MH'
+        },
+        'company': [{
+            'name': 'xyz',
+            'phone':  {
+            'home': 'test1',
+            'work': 'test2'
+            }
+        }]};
         
-            if(Array.isArray(item)){
-            output= output.concat(getFlatArray(item))
-            }else{
-                output.push(item)
-            }
+        ```
+    </details>
 
-        })
-        return output;
+    <details>
+    <summary>Solution</summary>
+
+    ```
+    function stringifyObj(input) {
+    let output="";
+        if(Array.isArray(input)){
+            output="[";
+            Object.keys(input).forEach(key=>{
+                if(typeof input[key]==='object'){
+                    output += `'${stringifyObj(input[key])}'`
+                    output += "],"
+                }
+                else{
+                    output += `'${key}': '${input[key]}'`;
+                    output += ","
+                }
+            })
+        }else{
+            output="{";
+            Object.keys(input).forEach(key=>{
+                if(typeof input[key]==='object'){
+                    output += `'${key}': '${stringifyObj(input[key])}'`
+                    output += "},"
+                }
+                else{
+                    output += `'${key}': '${input[key]}'`;
+                    output += ","
+                }
+            })
+        }
+    return output;
     }
-
-    getFlatArray(arr)
-    
     ```
     </details>
 
-3. Write a function to get count of all the letter in the given string
+2. Write the polyfill for filter method of Array.
+
+    <details>
+    <summary>Example Input</summary>
+
+        ```
+        var logicAlbums = [
+        {
+            name: 'Bobby Tarantino',
+            rating: 5,
+        },
+        { name: 'The Incredible True Story', rating: 4.5 },
+        {
+            name: 'Supermarket',
+            rating: 4.9,
+        },
+        { name: 'Under Pressure', rating: 5 },
+        ]
+        ```
+    </details>
 
     <details>
     <summary>Solution</summary>
 
         ```
-            
-            function getUnique(input) {
-            let output={}
-            for (let index = 0; index < input.length; index++) {
-                    if(output[input[index]]){
-                        output[input[index]]=++output[input[index]]
-                    }else{
-                        output[input[index]]=1;
-                    }
-                }   
-                console.log(output)
+        Array.prototype.filterAlbums = function(callback) {
+        arr = []
+        for (var i = 0; i < this.length; i++) {
+            if (callback(this[i])) {
+            arr.push(this[i])
             }
+        }
+        return arr
+        }
+        const newAlbums=logicAlbums.filterAlbums(function(album) {
+        return album.rating > 4.9 // providing the context here
+        })
 
-            var str = 'aaecca';
-            getUnique(str
-            
+        console.log(newAlbums)
         ```
     </details>
-  
- 
+
+3. Write Polyfill for flat method of an Array
+
+    <details>
+    <summary>Example Input</summary>
+
+        ```
+        const input =[ "one", "two",["three","four",["five","six"]]];
+        ```
+    </details>
+
+    <details>
+    <summary>Solution</summary>
+
+        ```
+        let output=[];
+        function getFlat(input){
+            input.forEach(arr=>{
+                if(!Array.isArray(arr)){
+                    output.push(arr);
+                }else{
+                    getFlat(arr)
+                }
+            })
+        }
+
+        getFlat(input);
+        console.log(output);
+
+        // Implementation Polyfill function
+
+        Array.prototype.myFlat=function(){
+            let output=[];
+            this.forEach(ar=>{
+                if(!Array.isArray(ar)){
+                    output.push(ar);
+                }else{
+                output= output.concat(ar.myFlat() )
+                }
+            })
+            return output;
+        }
+
+        console.log(input.myFlat())
+        ```
+    </details>
