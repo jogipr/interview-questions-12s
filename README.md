@@ -22,18 +22,20 @@
     <summary>Solution</summary>
     
         ```
-        function printSuborg2(leader) {
-            let reportees = tree[leader];
-            if(reportees.length===0){
-                return leader;
-            }
-            reportees.forEach( rep =>{
-                output.push(printSuborg2( rep))
-            })
-            return leader;
-        }
-        // run function
-        printSuborg('Jane Mayer');
+           function printSuborg(leader) {
+            let output=[];
+             let reportees = tree[leader];
+             if(reportees.length===0){
+                 return [leader];
+             }
+             reportees.forEach( rep =>{
+                const res= printSuborg( rep)        
+                 output=[...output,...res]
+             })
+             return [leader,...output];
+         }
+         // run function
+        console.log( printSuborg('Jane Mayer'));
         ```
     </details> 
 
