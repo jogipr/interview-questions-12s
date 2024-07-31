@@ -134,11 +134,35 @@
         }
         const processChange = debounce.call(obj,saveInput);
         processChange("test");
+
+       function throttle(func, limit) {
+          let lastFunc;
+          let lastRan;
+
+          return function() {
+            const context = this;
+            const args = arguments;
+        
+            if (!lastRan) {
+              func.apply(context, args);
+              lastRan = Date.now();
+            } else {
+              clearTimeout(lastFunc);
+              lastFunc = setTimeout(function() {
+                if ((Date.now() - lastRan) >= limit) {
+                  func.apply(context, args);
+                  lastRan = Date.now();
+                }
+              }, limit - (Date.now() - lastRan));
+            }
+          };
+        }
+
         ```
     </details>
 
 
-4. Write implementation of infite currying
+5. Write implementation of infite currying
     <details>
     <summary>Solution</summary>
     
@@ -156,7 +180,7 @@
     </details>
 
 
-5. Write the custome Promise logic
+6. Write the custome Promise logic
     <details>
     <summary>Solution</summary>
     
@@ -206,7 +230,7 @@
     </details>
 
 
-6. Write Promsification : Convert function which takes callback funtion for handling asyn operation...using Promise based approach   
+7. Write Promsification : Convert function which takes callback funtion for handling asyn operation...using Promise based approach   
 
     <details>
     <summary>Solution: a) Callback way of handling asynchronous call.</summary>
@@ -257,7 +281,7 @@
     </details>
 
 
-7. Promisification of function which takes callback.
+8. Promisification of function which takes callback.
 
     <details>
     <summary>Solution</summary>
@@ -283,7 +307,7 @@
     </details>
 
 
-8. Logical Question related to currying. Write the function which will take object as shown below and then produce the result as shown below
+9. Logical Question related to currying. Write the function which will take object as shown below and then produce the result as shown below
 
     <details>
     <summary>Example Input</summary>
