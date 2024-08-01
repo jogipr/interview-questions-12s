@@ -292,6 +292,17 @@
                 return output;
             })
         }
+
+       e(2,3);
+
+           output :
+           {
+            "sum": 5,
+            "mul": 6,
+            "nested": {
+            "sum": 5
+            }
+            }
         ```
     </details>
 
