@@ -144,3 +144,52 @@
         console.log(input.myFlat())
         ```
     </details>
+
+4. Write the custome Promise logic
+    <details>
+    <summary>Solution</summary>
+    
+        ```
+        Solution:
+        function CustomePromise(executorFunc) {
+
+            let resolution="pending";
+            let successCb=[];
+            let failureCb=[];
+
+            function resolve(params) {
+                const [successfunc] = successCb;
+                successfunc(params);
+            }
+
+            function reject(params) {
+                const [failureFunc] = failureCb;
+                failureFunc(params);
+            }
+
+            setTimeout(()=>{
+                executorFunc(resolve,reject);
+            },1000);
+
+            return{
+                status:resolution,
+                then:function (successfunc,failureFunc) {
+                    if(this.status=='pending'){
+                        successCb.push(successfunc);
+                        failureCb.push(failureFunc);
+                    }else{
+                        successCb("successCb");
+                    }
+                }
+            }
+        }
+
+
+        const ourPromise = new CustomePromise((resolve,reject)=>{
+            resolve("i am done");
+        })
+
+        console.log(ourPromise)
+        ourPromise.then((value)=> console.log(value));
+        ```
+    </details>
