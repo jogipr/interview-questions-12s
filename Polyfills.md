@@ -193,3 +193,42 @@
         ourPromise.then((value)=> console.log(value));
         ```
     </details>
+
+5. Write the Polyfill for call ,apply and bind
+    <details>
+    <summary>Solution</summary>
+        
+        ```
+        const greet =function (){
+                console.log(`hello ${this.name}`)
+            }
+
+        const person ={
+            name:"John"
+        }
+        
+        Function.prototype.myCall=function (context,...params) {
+          
+            if(typeof this!='function'){
+                return new Error("error");
+            }
+            context.fn=this;
+            context.fn(params)
+        }
+        console.log(greet.myCall(person))
+        
+        Function.prototype.myBind=function (context) {
+           
+            if(typeof this!='function'){
+                return new Error("error");
+            }
+            context.fn=this;
+            return function (params) {
+                return context.fn(params)
+            }
+        }
+        
+        const boundedGreet=greet.myBind(person)
+        console.log(boundedGreet())
+        ```
+    </details>
